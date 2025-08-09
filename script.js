@@ -23,7 +23,7 @@ document.getElementById("notifyForm").addEventListener("submit", async function(
     message.textContent = "Subscribing...";
     message.style.color = "white";
 
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/emails`, {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/notify_emails`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
