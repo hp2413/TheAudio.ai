@@ -1,157 +1,226 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle at 20% 20%, #6a11cb, transparent 25%),
-                radial-gradient(circle at 80% 30%, #2575fc, transparent 25%),
-                radial-gradient(circle at 50% 80%, #ff9800, transparent 35%),
-                #000;
-    background-size: cover;
-    color: white;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* NAVBAR */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 40px;
-    background: black;
-  }
-  
-  .logo {
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-  
-  nav a {
-    margin: 0 15px;
-    color: white;
-    text-decoration: none;
-    font-size: 0.95rem;
-  }
-  
-  nav a:hover {
-    text-decoration: underline;
-  }
-  
-  /* HERO */
-  .hero {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 40px;
-  }
-  
-  .hero-content {
-    max-width: 700px;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-  }
-  
-  /* .highlight {
-    color: rgb(95, 176, 226);       /* Keep "The" black */
-    /* margin-right: 5px;  Small gap from 'Audio.ai' */
-  /* } */ 
+body {
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
 
-  .highlight {
-    background: linear-gradient(270deg, #ff9800, #f107a3, #00c6ff, #ff9800);
-    background-size: 600% 600%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientText 8s ease infinite;
-    margin-right: 5px;
-  }
-  
-  @keyframes gradientText {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  
-  
-  .hero-content h1 {
-    font-weight: bold;
-  }
-  
-  
-  .subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-  }
-  
-  /* BUTTONS */
-  button {
-    cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 1rem;
-    border: none;
-  }
-  
-  .btn-white {
-    background: white;
-    color: black;
-  }
-  
-  .btn-black {
-    background: black;
-    color: white;
-    border: 2px solid white;
-  }
-  
-  .btn-solid {
-    background: #ff9800;
-    color: white;
-    border: none;
-  }
-  
-  .btn-white:hover,
-  .btn-black:hover,
-  .btn-solid:hover {
-    opacity: 0.85;
-  }
-  
-  .buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  /* EMAIL FORM */
-  .email-form {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 10px;
-  }
-  
-  .email-form input {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-    width: 250px;
-  }
-  
-  #message {
-    margin-top: 15px;
-    font-size: 0.9rem;
-    color: lightgreen;
-  }
-  
+/* Animated background circles */
+.circle1, .circle2, .circle3, .circle4 {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+.circle1 {
+  width: 1200px;
+  height: 1200px;
+  background: radial-gradient(circle, #6a11cb 0%, transparent 25%);
+  top: -200px;
+  left: -220px;
+  animation: revolve1 5s linear infinite;
+}
+
+.circle2 {
+  width: 1200px;
+  height: 1000px;
+  background: radial-gradient(circle, #2575fc 0%, transparent 25%);
+  top: -80px;
+  right: -250px;
+  animation: revolve2 9s linear infinite reverse;
+}
+
+.circle3 {
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, #ff9800 0%, transparent 35%);
+  bottom: -250px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: revolve3 8s linear infinite;
+}
+
+.circle4 {
+  width: 950px;
+  height: 950px;
+  background: radial-gradient(circle, #ce1515 0%, transparent 25%);
+  top: -250px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: revolve4 7s linear infinite reverse;
+}
+
+@keyframes revolve4 {
+  0% { transform: translateX(-50%) rotate(0deg) translateX(45px) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(360deg) translateX(45px) rotate(-360deg); }
+}
+
+@keyframes revolve1 {
+  0% { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+}
+
+@keyframes revolve2 {
+  0% { transform: rotate(0deg) translateX(-50px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(-50px) rotate(-360deg); }
+}
+
+@keyframes revolve3 {
+  0% { transform: translateX(-50%) rotate(0deg) translateX(70px) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(360deg) translateX(70px) rotate(-360deg); }
+}
+
+@keyframes revolve4 {
+  0% { transform: translateX(-50%) rotate(0deg) translateX(45px) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(360deg) translateX(45px) rotate(-360deg); }
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  background: black;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+nav a {
+  margin: 0 15px;
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* HERO */
+.hero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+/* .highlight {
+  color: rgb(95, 176, 226);       /* Keep "The" black */
+  /* margin-right: 5px;  Small gap from 'Audio.ai' */
+/* } */ 
+
+.highlight {
+  background: linear-gradient(270deg, #ff9800, #f107a3, #00c6ff, #ff9800);
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientText 8s ease infinite;
+  margin-right: 5px;
+}
+
+@keyframes gradientText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+.hero-content h1 {
+  font-weight: bold;
+}
+
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* BUTTONS */
+button {
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  border: none;
+}
+
+.btn-white {
+  background: white;
+  color: black;
+}
+
+.btn-black {
+  background: black;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-solid {
+  background: #ff9800;
+  color: white;
+  border: none;
+}
+
+.btn-white:hover,
+.btn-black:hover,
+.btn-solid:hover {
+  opacity: 0.85;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* EMAIL FORM */
+.email-form {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.email-form input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  width: 250px;
+}
+
+#message {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: lightgreen;
+}
