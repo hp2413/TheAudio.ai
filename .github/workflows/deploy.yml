@@ -3,7 +3,10 @@ name: Deploy Website
 on:
   push:
     branches:
-      - main   # change this if your default branch is different
+      - main   # change if your default branch is different
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -14,12 +17,11 @@ jobs:
 
       - name: Create config.js from secrets
         run: |
-          mkdir -p public
-          echo "const SUPABASE_URL = \"${{ secrets.SUPABASE_URL }}\";" > public/config.js
-          echo "const SUPABASE_ANON_KEY = \"${{ secrets.SUPABASE_ANON_KEY }}\";" >> public/config.js
+          echo "const SUPABASE_URL = \"${{ secrets.SUPABASE_URL }}\";" > config.js
+          echo "const SUPABASE_ANON_KEY = \"${{ secrets.SUPABASE_ANON_KEY }}\";" >> config.js
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          personal_token: ${{ secrets.GH_PAT }}
+          publish_dir: ./
