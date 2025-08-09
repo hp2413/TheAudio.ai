@@ -1,7 +1,7 @@
 // Configuration - these will be replaced during build
 const SUPABASE_URL = "PLACEHOLDER_SUPABASE_URL";
 const SUPABASE_ANON_KEY = "PLACEHOLDER_SUPABASE_ANON_KEY";
-
+// console.log(SUPABASE_URL)
 document.getElementById("notifyForm").addEventListener("submit", async function(e) {
   e.preventDefault();
   
