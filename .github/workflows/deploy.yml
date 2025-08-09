@@ -12,16 +12,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Create config.js from secrets
+      - name: Replace placeholders in script.js
         run: |
-          echo "const SUPABASE_URL = \"${{ secrets.SUPABASE_URL }}\";" > config.js
-          echo "const SUPABASE_ANON_KEY = \"${{ secrets.SUPABASE_ANON_KEY }}\";" >> config.js
-          echo "Created config.js with:"
-          cat config.js
-      
-      - name: List files before deploy
+          sed -i 's|PLACEHOLDER_SUPABASE_URL|${{ secrets.SUPABASE_URL }}|g' script.js
+          sed -i 's|PLACEHOLDER_SUPABASE_ANON_KEY|${{ secrets.SUPABASE_ANON_KEY }}|g' script.js
+          echo "Modified script.js - first 5 lines:"
+          head -5 script.js
+
+      - name: List all files
         run: |
-          echo "Files in directory:"
+          echo "All files to be deployed:"
           ls -la
 
       - name: Deploy to GitHub Pages

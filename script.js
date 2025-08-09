@@ -1,8 +1,19 @@
+// Configuration - these will be replaced during build
+const SUPABASE_URL = "PLACEHOLDER_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "PLACEHOLDER_SUPABASE_ANON_KEY";
+
 document.getElementById("notifyForm").addEventListener("submit", async function(e) {
   e.preventDefault();
   
   const email = document.getElementById("email").value.trim();
   const message = document.getElementById("message");
+
+  // Check if configuration is loaded
+  if (SUPABASE_URL === "PLACEHOLDER_SUPABASE_URL" || SUPABASE_ANON_KEY === "PLACEHOLDER_SUPABASE_ANON_KEY") {
+    message.textContent = "Configuration not loaded. Please try again in a moment.";
+    message.style.color = "red";
+    return;
+  }
 
   if (!email) {
     message.textContent = "Please enter a valid email address.";
