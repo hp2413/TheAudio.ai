@@ -16,9 +16,17 @@ jobs:
         run: |
           echo "const SUPABASE_URL = \"${{ secrets.SUPABASE_URL }}\";" > config.js
           echo "const SUPABASE_ANON_KEY = \"${{ secrets.SUPABASE_ANON_KEY }}\";" >> config.js
+          echo "Created config.js with:"
+          cat config.js
+      
+      - name: List files before deploy
+        run: |
+          echo "Files in directory:"
+          ls -la
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GH_PAT }}
           publish_dir: ./
+          force_orphan: true
