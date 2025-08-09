@@ -10,33 +10,52 @@ document.getElementById("notifyForm").addEventListener("submit", async function(
     return;
   }
 
+  // Basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    message.textContent = "Please enter a valid email address.";
+    message.style.color = "red";
+    return;
+  }
+
   try {
-    const { data, error } = await fetch(`${SUPABASE_URL}/rest/v1/emails`, {
+    // Show loading state
+    message.textContent = "Subscribing...";
+    message.style.color = "white";
+
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/emails`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        Prefer: "return=minimal"
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        "Prefer": "return=minimal"
       },
       body: JSON.stringify({ email })
-    }).then(res => res.json());
+    });
 
-    if (error) {
-      throw error;
+    // Check if the response is ok
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
     }
 
+    // Success
     message.textContent = "Thank you! We'll notify you when we launch.";
     message.style.color = "lightgreen";
     document.getElementById("notifyForm").reset();
+    
   } catch (err) {
-    message.textContent = "Error saving email. It might already be registered.";
+    console.error("Subscription error:", err);
+    
+    // Handle different types of errors
+    if (err.message.includes('duplicate') || err.message.includes('unique')) {
+      message.textContent = "This email is already registered!";
+    } else if (err.message.includes('network') || err.message.includes('fetch')) {
+      message.textContent = "Network error. Please check your connection.";
+    } else {
+      message.textContent = "Error saving email. Please try again.";
+    }
     message.style.color = "red";
-    console.error(err);
   }
 });
-
-
-  
-
-
